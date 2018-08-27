@@ -1,4 +1,4 @@
-## Welcome to M Pages
+## JavaScript
 [What is light weight programming language ?](https://vamshikenche.github.io/LightWeightProgrammingLanguage)
 You can use the [editor on GitHub](https://github.com/vamshikenche/vamshikenche.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
