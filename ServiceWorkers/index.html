@@ -1,22 +1,50 @@
-
 <link rel="manifest" href="manifest.json">
 <script>
- function sayHI() {
-    worker.postMessage({'cmd': 'start', 'msg': 'Hi'});
-  }
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/doWork.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+    var deferredPrompt;
 
-  function stop() {
-    // worker.terminate() from this script would also stop the worker.
-    worker.postMessage({'cmd': 'stop', 'msg': 'Bye'});
-  }
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+    });
 
-  function unknownCmd() {
-    worker.postMessage({'cmd': 'foobard', 'msg': '???'});
-  }
+    function sayHI() {
+        worker.postMessage({
+            'cmd': 'start',
+            'msg': 'Hi'
+        });
+    }
 
-  var worker = new Worker('doWork.js');
+    function stop() {
+        // worker.terminate() from this script would also stop the worker.
+        worker.postMessage({
+            'cmd': 'stop',
+            'msg': 'Bye'
+        });
+    }
 
-  worker.addEventListener('message', function(e) {
-    document.getElementById('result').textContent = e.data;
-  }, false);
+    function unknownCmd() {
+        worker.postMessage({
+            'cmd': 'foobard',
+            'msg': '???'
+        });
+    }
+
+    var worker = new Worker('doWork.js');
+
+    worker.addEventListener('message', function(e) {
+        document.getElementById('result').textContent = e.data;
+    }, false);
 </script>
