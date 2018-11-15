@@ -1,4 +1,0 @@
-Interpreted Programming Language: The code of interpreted language is translated to native cpu platform/machine instructions during run time/ while the program is being executed.
-At the other side, the compiled code is translated before the program executed.
-
-JIT Compiled Programming Language: 
