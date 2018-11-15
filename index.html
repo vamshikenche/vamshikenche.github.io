@@ -4,7 +4,13 @@
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="manifest.json">
+
+<body>
+    <button class="btnAdd">Try it</button>
+
+</body>
 <script>
+    var btnAdd = document.getElementsByClassName('btnAdd')[0];
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             navigator.serviceWorker.register('/doWork.js').then(function(registration) {
@@ -72,11 +78,6 @@
         document.getElementById('result').textContent = e.data;
     }, false);
 </script>
-
-<body>
-    <button class="btnAdd">Try it</button>
-
-</body>
 
 
 </html>
